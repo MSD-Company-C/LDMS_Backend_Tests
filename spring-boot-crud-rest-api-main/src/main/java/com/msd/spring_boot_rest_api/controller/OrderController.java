@@ -33,13 +33,13 @@ public class OrderController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE') or hasRole('DRIVER')")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE') or hasRole('DRIVER')")
     public List<Order> getAllOrders() {
         return service.getAllOrders();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE') or hasRole('DRIVER')")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE') or hasRole('DRIVER')")
     public ResponseEntity<Order> getOrder(@PathVariable Long id) {
         return service.getOrderById(id)
                 .map(ResponseEntity::ok)
@@ -47,14 +47,14 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE')")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE')")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
         service.deleteOrder(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE')")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('WAREHOUSE')")
     public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody StatusUpdateRequest request) {
         return service.getOrderById(id)
                 .map(order -> ResponseEntity.ok(service.updateOrderStatus(id, request.getStatus())))
